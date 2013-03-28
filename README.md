@@ -1,4 +1,4 @@
-texture_features
+GLRL texture_features
 ================
 ITK, OpenCV
 
