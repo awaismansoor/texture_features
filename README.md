@@ -21,6 +21,7 @@ The code works for single 'Offset' and 8-levels but can be easily extended to mu
    Short Run High Gray-Level Emphasis (SRHGE)
    Long Run Low Gray-Level Emphasis (LRLGE)
    Long Run High Gray-Level Emphasis (LRHGE)
+   
 -------------------------------------------
   Reference:
 --------------------------------------------
