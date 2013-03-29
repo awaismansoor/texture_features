@@ -78,13 +78,13 @@ void HaralickFeatures( const ImageType* image, double stats[6])
 			stats[ii]=(*output)[ii];
 
 						
-					
+		/*			
 		std::cout << "Energy = "<<(*output)[0]<< std::endl;
 		std::cout << "Entropy = "<<(*output)[1]<< std::endl;
 		std::cout << "InverseDifferenceMoment = "<<(*output)[2]<< std::endl;
 		std::cout << "Inertia = "<<(*output)[3]<< std::endl;
 		std::cout << "ClusterShade = "<<(*output)[4]<< std::endl;
-		std::cout << "ClusterProminence = "<<(*output)[5]<< std::endl;
+		std::cout << "ClusterProminence = "<<(*output)[5]<< std::endl;*/
 
 }
 
@@ -161,7 +161,7 @@ void momentosEstatOpenCV(IplImage *src, double stats[8]) {
      stats[5] = (stats[5])/(N*stats[3]*stats[3]) - 3.0;
   } else
      printf("No skew/kurtosis. Variance = 0.\n");
-
+/*
     std::cout<<"Mean = "<<stats[0]<<std::endl;
 	std::cout<<"Mean Dev. = "<<stats[1]<<std::endl;
 	std::cout<<"Std. Dev. = "<<stats[2]<<std::endl;
@@ -169,7 +169,7 @@ void momentosEstatOpenCV(IplImage *src, double stats[8]) {
 	std::cout<<"Skewness = "<<stats[4]<<std::endl;
 	std::cout<<"Kurtosis = "<<stats[5]<<std::endl;
 	std::cout<<"Min. = "<<stats[6]<<std::endl;
-	std::cout<<"Max. ="<<stats[7]<<std::endl;
+	std::cout<<"Max. ="<<stats[7]<<std::endl;*/
 
 } 
 
@@ -262,7 +262,7 @@ printf("momentosEstatITK\n");
      stats[5] = (stats[5])/(N*stats[3]*stats[3]) - 3.0;
   } else
      printf("no skew/kurtosis. Variance = 0.");
-
+  /*
     std::cout<<"Mean = "<<stats[0]<<std::endl;
 	std::cout<<"Mean Dev. = "<<stats[1]<<std::endl;
 	std::cout<<"Std. Dev. = "<<stats[2]<<std::endl;
@@ -270,7 +270,7 @@ printf("momentosEstatITK\n");
 	std::cout<<"Skewness = "<<stats[4]<<std::endl;
 	std::cout<<"Kurtosis = "<<stats[5]<<std::endl;
 	std::cout<<"Min. = "<<stats[6]<<std::endl;
-	std::cout<<"Max. ="<<stats[7]<<std::endl;
+	std::cout<<"Max. ="<<stats[7]<<std::endl;*/
 
 
 }
@@ -315,10 +315,10 @@ Mat mesh_grid2(Mat c_vector, Mat r_vector)
 
 int main( int argc, char * argv[] )
 {
-  if( argc < 5 )
+  if( argc < 2 )
     {
       std::cerr << "Usage: " << std::endl;
-      std::cerr << argv[0] << " inputImageFile outputImageFile thresholdLow thresholdHigh" << std::endl;
+      std::cerr << argv[0] << " inputImageFile" << std::endl;
       return EXIT_FAILURE;
     }
   
@@ -337,9 +337,7 @@ int main( int argc, char * argv[] )
    
   //Parameters
   reader->SetFileName( argv[1] );
-  writer->SetFileName( argv[2] );
-  float thresholdLow = atof(argv[3]);
-  float thresholdHigh = atof(argv[4]);
+  
 
   //Pipeline
   try
@@ -576,7 +574,7 @@ int ii=0;
  temp=Mat::ones(LRHGE_matrix.size[1], 1, CV_32F);
  double LRHGE=sum(LRHGE_matrix*temp)[0]/N_runs; 
 
-  	
+ /* 	
   std::cout << "SRE = "<< SRE<<std::endl;
   std::cout << "LRE = "<< LRE<<std::endl;
   std::cout << "GLN = "<< GLN<<std::endl;
@@ -587,7 +585,7 @@ int ii=0;
   std::cout << "SGLGE = "<< SGLGE<<std::endl;
   std::cout << "SRHGE = "<< SRHGE<<std::endl;
   std::cout << "LRLGE = "<< LRLGE<<std::endl;
-  std::cout << "LRHGE = "<< LRHGE<<std::endl;
+  std::cout << "LRHGE = "<< LRHGE<<std::endl;*/
 
   
   double Stats[25];
@@ -625,9 +623,22 @@ int ii=0;
   for(i=0;i<6; i++)
 	  Stats[19+i]=stats3[i];
 
-  for(i=0;i<25; i++)
-	  std::cout<<Stats[i]<<std::endl;
+  //for(i=0;i<25; i++)
+  //  std::cout<<Stats[i]<<std::endl;
  
+
+  std::ofstream featureCSV;
+  featureCSV.open("features.csv", std::ios_base::app);  
+	
+	ii=0;
+	while (ii<25)
+	{
+	
+	featureCSV<<Stats[ii] <<",";
+		ii++;
+	}
+	  featureCSV<<std::endl;
+	  featureCSV.close();
 
 
   return EXIT_SUCCESS;
